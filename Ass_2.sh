@@ -20,9 +20,7 @@ menu_input
 menu_input(){
 echo "Make a selection: "
 read INPUT
-
 i=0 
-
 for item in `ls /sys/class/leds`
     do
     let "i++"
@@ -50,9 +48,7 @@ echo "2) Turn off"
 echo "3) System event"
 echo "4) Quit to main menu"
 echo "Please enter a number between 1-4"
-
 read choice
-
 case $choice in
     1)
     sudo sh -c "echo 1 >/sys/class/leds/$item/brightness"
