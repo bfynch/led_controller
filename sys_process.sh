@@ -14,17 +14,13 @@ case $2 in
     while true
     do
         cpuusage=`ps -aux | grep $1 | awk {'print $3'}`
-        for proc in cpuusage
-            do
-               echo "$proc"
-            done 
-        # cpu1=`echo $cpuusage | awk {'print $1'}`
-        # cpuon=`echo $cpu1/100 | bc -l`
-        # cpuoff=`echo 1-$cpuon | bc -l`
-        # sudo sh -c "echo 1 >/sys/class/leds/$3/brightness"
-        # sleep $cpuon
-        # sudo sh -c "echo 0 >/sys/class/leds/$3/brightness"
-        # sleep $cpuoff
+        cpu1=`echo $cpuusage | awk {'print $1'}`
+        cpuon=`echo $cpu1/100 | bc -l`
+        cpuoff=`echo 1-$cpuon | bc -l`
+        sudo sh -c "echo 1 >/sys/class/leds/$3/brightness"
+        sleep $cpuon
+        sudo sh -c "echo 0 >/sys/class/leds/$3/brightness"
+        sleep $cpuoff
     done
     ;;
 
