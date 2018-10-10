@@ -6,8 +6,8 @@ print_menu(){
 i=0    
 echo "LED Settings"
 echo "----------------------"
-leds=( `ls /sys/class/leds` )
-for item in ${leds[@]}
+#leds=( `ls /sys/class/leds` )
+for item in `ls /sys/class/leds`
 do 
     let "i++"
     echo "$i) $item"          
@@ -24,8 +24,8 @@ menu_input(){
 echo "Make a selection: "
 read INPUT
 i=0 
-leds=( `ls /sys/class/leds` )
-for item in ${leds[@]}
+#leds=( `ls /sys/class/leds` )
+for item in `ls /sys/class/leds`
     do
     let "i++"
     case $INPUT in 
@@ -87,8 +87,8 @@ case $choice in
     ;;
     
     5)
-    clear
     kill_process
+    clear
     led_action
     ;;
     
@@ -115,7 +115,6 @@ for sysevent in `cat /sys/class/leds/$item/trigger`
 do 
     let "i++"
     echo "$i) ${sysevent//[[,.!]}" | sed -e 's,],*,g'   
-    #echo "$i) $sysevent" | sed -e 's,],*,g'            
 done
     let "i++"
     echo "$i) Quit"
@@ -149,6 +148,7 @@ for ae in `cat /sys/class/leds/$item/trigger`
         ;;
 
         *)
+        clear
         echo "Invalid choice. Please try again."
         system_event
         break
